@@ -1,0 +1,23 @@
+{% block head %}
+<link rel="stylesheet" href="/static/home.css" type="text/css">
+<title>{{ title }}</title>
+{% endblock %}
+
+{% block body %}
+
+<div class="divTable paleBlueRows">
+<div class="divTableHeading">
+<div class="divTableRow">
+<div class="divTableHead">Pages Menu</div>
+</div>
+</div>
+<div class="divTableBody">
+{% for page in pages %}
+<div class="divTableRow">
+<div class="divTableCell"> <a href="{{page[0]}}" >{{page[1]}}</a> </div>
+</div>
+{% endfor %}
+</div>
+</div>
+
+{% endblock %}

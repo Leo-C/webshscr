@@ -1,0 +1,101 @@
+{% block head %}
+<link rel="stylesheet" href="/static/users.css" type="text/css">
+<title>{{ title }}</title>
+
+<script type="text/javascript">
+function copyUser(user) {
+    var user_name = document.getElementById(user+"_name").innerText;
+    var user_groups = document.getElementById(user+"_groups").innerText;
+	
+	var node_edit_user = document.getElementById("user");
+	var node_edit_groups = document.getElementById("groups");
+	
+	node_edit_user.value = user_name
+	node_edit_groups.value = user_groups
+}
+
+function set_action(action) {
+	var action_node = document.getElementById("action");
+	action_node.value = action
+	
+	var form_node = document.getElementById("user_form");
+	form_node.submit(); 
+}
+</script>
+
+{% endblock %}
+
+{% block body %}
+
+<div class="divTable paleBlueRows">
+<div class="divTableHeading">
+<div class="divTableRow">
+<div class="divTableHead">User Name</div>
+<div class="divTableHead">Groups</div>
+</div>
+</div>
+<div class="divTableBody">
+{% for user in users %}
+<div class="divTableRow">
+<div class="divTableCell" id="{{user[0]}}_name"><a href="javascript:copyUser('{{user[0]}}')">{{ user[0] }}</a></div>
+<div class="divTableCell" id="{{user[0]}}_groups">{{ user[1] }}</div>
+</div>
+{% endfor %}
+</div>
+</div>
+
+<br/>
+<br/>
+
+<form id="user_form" action="/users" method="POST">
+
+<table class="paleBlueRows">
+<thead>
+<tr>
+<th colspan=2>User Properties</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td class="title">User</td>
+<td><input type="text" name="user" id="user" value="" class="" ></td>
+</tr>
+<tr>
+<td class="title">Password</td>
+<td><input type="password" name="password1" id="password1" value="" class="" ></td>
+</tr>
+<tr>
+<td class="title">Confirm Password</td>
+<td><input type="password" name="password2" id="password2" value="" class="" ></td>
+</tr>
+<tr>
+<td class="title">Groups</td>
+<td><input type="text" name="groups" id="groups" value="" class="" ></td>
+</tr>
+</tbody>
+
+<tfoot>
+<tr>
+<td colspan=2>
+<input type="hidden" name="action" id="action" value="" >
+<button onclick="javascript:set_action('create')" class="btn btn-primary btn-large btn-block" >Add User</button>
+<button onclick="javascript:set_action('update')" class="btn btn-primary btn-large btn-block" >Modify User</button>
+<button onclick="javascript:set_action('delete')" class="btn btn-primary btn-large btn-block" >Delete User</button>
+</td>
+</tr>
+
+</tfoot>
+</table>
+
+</form>
+
+<br/>
+
+<div class="messages">
+{% for message in get_flashed_messages() %}
+	{{ message }} </br>
+{% endfor %}
+</div>
+
+{% endblock %}
