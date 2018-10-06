@@ -56,12 +56,12 @@ In config directory following files are used:
     4: log Warnings, Errors, Info and Debug  
   - ```LOG_FILE```: optional, is file to store log; if not specified is  ```STDOUT```.
 * ```pages.csv```: list of html pages permitted (listed in home page)  
-  *Format*: is CSV with pipe separator (```|```); following are permitted fields:
+  *Format*: is CSV with pipe separator (```|```) with headers in 1st row; following are permitted fields:
   - **page_name**: page name in html (only page name, accessed with following URL: ```http://host/pages/<html_page>```)
   - **groups**: groups separated by comma (```,```); those will be only authorized to access specified page 
   - **description**: description that appear in list automatically generated in home page 
 * ```scripts.acl```: ACLs for running script files (specifying groups)  
-  *Format*: is ```<script_name>:<groups>```:
+  *Format*: fields are ```<script_name>:<groups>``` with comment lines beginning with ```#```:
   - **script_name** is filename (not path) of a script in ```scripts``` subdirectory
   - **groups**: groups separated by commas; those will be only authorized to access specified script  
 * ```users.dat```: user storing users with associated password and groups  
