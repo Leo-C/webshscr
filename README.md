@@ -65,9 +65,9 @@ In config directory following files are used:
   - **script_name** is filename (not path) of a script in ```scripts``` subdirectory
   - **groups**: groups separated by commas; those will be only authorized to access specified script  
 * ```users.dat```: user storing users with associated password and groups  
-  *Format*: ```<user>:<user/password econding>:<groups>```:
+  *Format*: ```<user>:<encoded user/password>:<groups>```:
   - **user**: is user name
-  - **user/password econding**: is SHA-256 encoding of sequence ```<user>:<password>```
+  - **enconded user/password**: SHA-256 hashing of sequence ```<user>:<password>```, then Base 64 encoded
   - **groups**: are groups containing specified user, separated by comma (```,```)
 
 
