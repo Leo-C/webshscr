@@ -71,7 +71,7 @@ In config directory following files are used:
   - **groups**: are groups containing specified user, separated by comma (```,```)
 
 
-### URL paths and platform behavior
+### <a name="URL"></a>URL paths and platform behavior
 
 Following paths are reserved, and must be known by developer of web pages and scripts.
 
@@ -80,14 +80,35 @@ Following paths are reserved, and must be known by developer of web pages and sc
 * ```http(s)://<host>:<port>/users```: reserved path for a predefined page to create / delete / modify users, password and groups. Only authenticated users of group **admins** are allowed to do so.
 * ```http(s)://<host>:<port>/pages/<html_template>```: under this URL are mapped files contained in ```templates``` directory (they support [Jinja 2](http://jinja.pocoo.org/docs/2.10/) syntax)
 * ```http(s)://<host>:<port>/static/<file>```: under this URL are mapped files contained in ```static``` directory, exposed verbatim via web
-* ```http(s)://<host>:<port>/script.<xxx>/<script_file>```: under this path are mapped files contained in ```scripts``` directory; ```<xxx>``` indicate protocol used to transmit parameters for scripts:
-  - ```form```: data is passed via GET or POST request with *form* format (e.g. ```key-1=value_1&...&key_n=value_n```)
-  - ```json```: data is passed in JSON format (e.g. ```{"key_1": "value_1", ..., "key_n": "value_n"}```)
-  - ```xml```: data is passed in XML format with following structure: ```<key_1>value_1</key_1> ... <key_n>value_n</key_n>```  
-  In all cases parameters are passed to script with following syntax (conforming to *getopt* syntax):
-  - ```script -k value``` if *key* is 1 char wide
-  - ```script --key value``` if *key* is 2+ char wide  
-  If value is empty only key is passed (useful for flags)
+* ```http(s)://<host>:<port>/script.<xxx>/<script_file>```: under this path are mapped files contained in ```scripts``` directory.  
+  ```<xxx>``` is protocol used to exchange values with scripts: permitted values are ```form```, ```json```, ```xml``` (see [Calling scripts](#script))
+
+
+### <a name="script"></a>Calling Scripts
+
+Platform admit 3 protocol to call scripts (see [URL paths and platform behavior](#URL)).  
+Parameters are sent to script with key/value pair (optionally only key for a flag) and 3 values are returned:
+
+* ```code```: a numeric value indicating output code from script (0 = OK)
+* ```out```: STDOUT output (used only if *code* is OK)
+* ```err```: STDERR output (used only if *code* is not OK)
+
+**Formats**:
+
+* **form**: data is passed via GET or POST request with *form* format:
+  - *Input*: ```key-1=value_1&...&key_n=value_n```
+  - *Output*: ```code=<num><CR>out|err=<message>```
+* **JSON**: data is passed in JSON format:
+  - *Input*: ```{"key_1": "value_1", ..., "key_n": "value_n"}```
+  - *Output*: ```{"code": <num>, "out": "<message", "err": "<message>"}```
+* **XML**: data is passed in XML format with following structure:
+  - *Input*: ```<key_1>value_1</key_1> ... <key_n>value_n</key_n>```
+  - *Output*: ```<code>num</code><out>message</out><err>message</err>```
+
+In all cases parameters are passed to script with following syntax (conforming to *getopt* syntax):
+
+* ```script -k [value]``` if *key* is 1 char wide
+* ```script --key [value]``` if *key* is 2+ char wide  
 
 
 ### User creation from CLI
