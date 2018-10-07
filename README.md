@@ -3,7 +3,7 @@
 
 ### Introduction
 
-**webshscr** is a lightweight web server useful to expose shell script via web. 
+**webshscr** is a lightweight web platform useful to expose shell script via web. 
 It provide user authorization and account, reserving execution of specific shell scripts to specific groups.
 
 
@@ -70,6 +70,24 @@ In config directory following files are used:
   - **enconded user/password**: SHA-256 hashing of sequence ```<user>:<password>```, then Base 64 encoded
   - **groups**: are groups containing specified user, separated by comma (```,```)
 
+
+### URL paths and platform behavior
+
+Following paths are reserved, and must be known by developer of web pages and scripts.
+
+* ```http(s)://<host>:<port>/login```: reserved path for login page (a cookie to store session for a specific user is used)
+* ```http(s)://<host>:<port>/logout```: reserved path to logout current user
+* ```http(s)://<host>:<port>/users```: reserved path for a predefined page to create / delete / modify users, password and groups. Only authenticated users of group **admins** are allowed to do so.
+* ```http(s)://<host>:<port>/pages/<html_template>```: under this URL are mapped files contained in ```templates``` directory (they support [Jinja 2](http://jinja.pocoo.org/docs/2.10/) syntax)
+* ```http(s)://<host>:<port>/static/<file>```: under this URL are mapped files contained in ```static``` directory, exposed verbatim via web
+* ```http(s)://<host>:<port>/script.<xxx>/<script_file>```: under this path are mapped files contained in ```scripts``` directory; ```<xxx>``` indicate protocol used to transmit parameters for scripts:
+  - ```form```: data is passed via GET or POST request with *form* format (e.g. ```key-1=value_1&...&key_n=value_n```)
+  - ```json```: data is passed in JSON format (e.g. ```{"key_1": "value_1", ..., "key_n": "value_n"}```)
+  - ```xml```: data is passed in XML format with following structure: ```<key_1>value_1</key_1> ... <key_n>value_n</key_n>```  
+  In all cases parameters are passed to script with following syntax (conforming to *getopt* syntax):
+  - ```script -k value``` if *key* is 1 char wide
+  - ```script --key value``` if *key* is 2+ char wide  
+  If value is empty only key is passed (useful for flags)
 
 
 ### User creation from CLI
