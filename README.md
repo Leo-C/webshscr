@@ -19,8 +19,8 @@ It provide user authorization and account, reserving execution of specific shell
 
 To install additional packages *[pip]()* can be used:  
 ```python -m pip install flask flask_login```  
-```python -m pip install flask subprocess32```  
-```python -m pip install flask xmltodict```  
+```python -m pip install subprocess32```  
+```python -m pip install xmltodict```  
 
 
 ### Starting **webshscr**
