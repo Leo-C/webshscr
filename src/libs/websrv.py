@@ -216,9 +216,9 @@ def script_form(scrname):
     else:
         log(4, "running script_form() ...")
         if current_user.has_groups(acl):
-            log(4, request.form)
+            log(4, request.args)
             
-            (code, out, err) = run_script(dir_scripts, scrname, request.form)
+            (code, out, err) = run_script(dir_scripts, scrname, request.args)
             if code == 0:
                 log(1, out)
                 return make_response(str(code) + '\n' + out, 200)
