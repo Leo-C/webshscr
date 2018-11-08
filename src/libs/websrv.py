@@ -93,7 +93,6 @@ def home():
     for p in pg:
         page = get_page(p)
         if current_user.has_groups(page.ACL):
-            print("TP1")
             pages.append((url_for('render_page', htmlfile=page.template), page.description))
     
     return render_template('home.html', title=title, pages=pages)
