@@ -125,6 +125,6 @@ Options are:
 
 ### License
 
-This program is licensed under [GPLv3](https://www.gnu.org/licenses/gpl.txt) license; no warranty is due, but you can contact me for problem and/or clarifications.  
+This program is licensed under [MIT license](https://opensource.org/licenses/MIT); no warranty is due, but you can contact me for problem and/or clarifications.  
 
 Commercial use is granted freely, but please inform me about this.
