@@ -125,6 +125,6 @@ Options are:
 
 ### License
 
-This program is licensed under [MIT license](https://opensource.org/licenses/MIT); no warranty is due, but you can contact me for problem and/or clarifications.  
+This program is licensed under [MIT license](https://opensource.org/licenses/MIT).  
 
 Commercial use is granted freely, but please inform me about this.
